@@ -21,6 +21,20 @@ Route.get('/', () => {
 })
 
 
+Route.post("/auth", "SessionController.create");
+
+Route.resource('/users', 'UserController')
+  .apiOnly()
+  .middleware(['auth', 'is:(administrator)'])
+
+Route.resource('/permissions', 'PermissionController')
+  .apiOnly()
+  .middleware('auth')
+
+Route.resource('/roles', 'RoleController')
+  .apiOnly()
+  .middleware('auth')
+
 Route.resource('lines', 'LineController').apiOnly()
 Route.resource('points', 'PointController').apiOnly()
 Route.resource('schedule', 'ScheduleController').apiOnly()
